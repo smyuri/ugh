@@ -4,8 +4,7 @@ let subKey = "sub-c-5c7c93ad-42b7-4af3-9cce-e78ea25ba5c2";
 let secretKey = "sec-c-ZmZjMTE2NWEtNzE3OS00ZWUwLWFiOGMtN2NlNDlkZDRkYmIy";
 
 let channelName = "history";
-let bg;
-let img;
+let imgOne;
 let you;
 
 //input variables for the form to PubNub
@@ -15,9 +14,8 @@ var sendButton;
 let history;
 
 function preload() { 
-
-bg= loadImage ("IMG_2605.PNG")
-img= loadImage("IMG_2606.PNG")
+imgOne= loadImage("IMG_2606.PNG");
+//imgOne.style.left= "200px";
   // logic to create a random UUID
     you = random(0,1000000); 
     console.log(you);
@@ -29,10 +27,8 @@ img= loadImage("IMG_2606.PNG")
 
 
 function setup() {
-
     createCanvas(windowWidth, windowHeight);
-image(img, 0, 0, img.width/3, img.height/3);
-image(bg, 25, 25, img.width/3, img.height/3);
+
     dataServer = new PubNub({
       subscribeKey: subKey,
       publishKey: pubKey,
@@ -51,10 +47,10 @@ image(bg, 25, 25, img.width/3, img.height/3);
   
     //create the text fields for the message to be sent
     sendText = createInput();
-    sendText.position((windowWidth/2) - 100, windowHeight *0.8);
-  sendText.fontcolor(255)
+    sendText.position((windowWidth/2) - 100, windowHeight *0.75);
+  
     sendButton = createButton("SEND");
-    sendButton.position(sendText.x + sendText.width, windowHeight * 0.8);
+    sendButton.position(sendText.x + sendText.width, windowHeight * 0.75);
     sendButton.mousePressed(sendTheMessage);
 
     fetchMessages();
@@ -62,8 +58,8 @@ image(bg, 25, 25, img.width/3, img.height/3);
 }
   
 function draw() {
-background(0)
-
+// background(0);
+image(imgOne, -windowWidth/3 , , imgOne.width/4, imgOne.height/4)
 
 }
 
@@ -90,13 +86,18 @@ function drawMessages(messageHistory) {
   console.log("in draw messages");
 
   console.log(messageHistory);
-  textColor(255);
-  textSize(80);
+  background(0);
+  textSize(50);
+  noStroke();
+  fill(255,255,255);
   for (let i = 0; i < messageHistory.length; i++) {
     
       console.log(messageHistory[i]);
-      text(messageHistory[i].message.messageText, windowWidth/2, 100 * (i+1));
+      //textY= 75 * (i+1) + 500;
+      text(messageHistory[i].message.messageText, windowWidth/2, 75 * (i+1) + 500);
+      //if textY > 800 {
 
+      //}
   }
 
 }
